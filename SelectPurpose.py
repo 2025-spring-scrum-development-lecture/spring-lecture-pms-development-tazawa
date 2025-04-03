@@ -20,10 +20,8 @@ class SelectPurpose(ctk.CTkFrame):
         
         
     def create_widgets(self):
-        self.label1 = ctk.CTkLabel(self.master, text=f'{self.name} 様', font=('Times', 20)) 
+        self.label1 = ctk.CTkLabel(self.master, text=f'{self.name} 様  〖{self.email}〗', font=('Times', 20)) 
         self.label1.place(x=20, y=10)
-        self.label1 = ctk.CTkLabel(self.master, text=f'〖{self.email}〗', font=('Times', 20)) 
-        self.label1.place(x=140, y=10)
         
         frame = ctk.CTkFrame(self.master, width=1000, height=500)
         frame.place(x=130, y=70)
