@@ -7,7 +7,7 @@ class TopPage(ctk.CTkFrame):
         self.place(x=400, y=100)
 
         self.master.state('zoomed')
-        master.title('title')
+        master.title('お客様情報')
         
         ctk.set_appearance_mode("Light")
         ctk.set_default_color_theme("green")
