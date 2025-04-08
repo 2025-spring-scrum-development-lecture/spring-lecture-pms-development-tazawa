@@ -278,7 +278,7 @@ class EntryStay(ctk.CTkFrame):
         
         from auth import pagemove_entrystay_quotationstay
         self.destroy()
-        pagemove_entrystay_quotationstay(self.master, self.numAdult, self.numChild, self.numStay, self.dinner, self.checkin_option, self.bedrockButh_option, self.peterAdult_option, self.peterChild_option, self.parkAdult_option, self.parkChild_option, self.tennis_option, self.hotSpringRental_option, self.dogone_option)
+        pagemove_entrystay_quotationstay(self.master, self.numAdult, self.numChild, self.numStay, self.planPrace_Adult, self.planPrace_Child, self.checkin_option, self.bedrockButh_option, self.peterAdult_option, self.peterChild_option, self.parkAdult_option, self.parkChild_option, self.tennis_option, self.hotSpringRental_option, self.dogone_option)
 
 if __name__ == '__main__':
     root = ctk.CTk()
