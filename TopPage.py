@@ -57,8 +57,10 @@ class TopPage(ctk.CTkFrame):
         else:
             self.name_label.configure(text="")
         
-        # from auth inport pagemove_top_select
-        # pagemove_top_select(self.name,self.email)
+        from auth import pagemove_top_select
+        self.destroy()
+        pagemove_top_select(self.master,name,email)
+        
         
 if __name__ == '__main__':
     root = ctk.CTk()

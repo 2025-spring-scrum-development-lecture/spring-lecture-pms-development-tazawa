@@ -37,13 +37,13 @@ class SelectPurpose(ctk.CTkFrame):
         
                 
     def stay_event(self):
-        # from auth import pagemove_select_entrystay
-        # pagemove_select_entrystay(self.name,self.email)
-        pass
+        from auth import pagemove_select_entrystay
+        self.destroy()
+        pagemove_select_entrystay(self.master,self.name,self.email)
     def banquet_event(self):
-        # from auth import pagemove_select_entrybanquet
-        # pagemove_select_entrybanquet(self.name,self.email)
-        pass
+        from auth import pagemove_select_entrybanquet
+        self.destroy()
+        pagemove_select_entrybanquet(self.master,self.name,self.email)
                 
         
 if __name__ == '__main__':
