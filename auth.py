@@ -199,7 +199,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 def Banquet_Send_email(name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money,staymoney,nostaymoney,nomitotal,nijikaitotal,roomgrade1total,roomgrade2total,add_menu1_total,add_menu2_total,add_menu3_total,Banquettotal):#見積もり結果、日付、見積もりの内容
     # メールアカウントの設定
-    ID = 'a.tazawa.sys24@morijyobi.ac.jp'
+    ID = 'h.komame.sys24@morijyobi.ac.jp'
     PASS = os.environ['MAIL_PASS']
     HOST = 'smtp.gmail.com'
     PORT = 587
@@ -209,11 +209,11 @@ def Banquet_Send_email(name, email,all_num,courcename,courcemoney,staynum,roomgr
     <h2>八幡平ハイツ　見積もり結果</h2>
     <p>{name}様</p>
     <p>ご利用ありがとうございます。見積もり結果は以下の通りです。</p>
-    <p>〖見積もり内容〗<br>----------------------------------------------------------<br>
+    <p>〖見積もり内容〗<br>-------------------------------------------------------------------------------------------<br>
     人数:{all_num}名<br>
     コース名：{courcename}／{courcemoney}円<br>
     宿泊人数:{staynum}人／{staymoney}円<br>
-    ※宿泊しない方は、30%オフとなります／計{nostaymoney}円<br>
+    ※宿泊しない方は、30%オフ／計{nostaymoney}円<br>
     
     部屋グレード：<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;岩手山展望露天風呂付和室【一部屋{roomgrade1}】:{roomgrade1num}人／{roomgrade1total}円<br>
@@ -224,14 +224,14 @@ def Banquet_Send_email(name, email,all_num,courcename,courcemoney,staynum,roomgr
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大更ホルモン鍋【一品{add_menu2}】：{menu2_num}個／{add_menu2_total}円<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;岩手県産牛の串焼き【一品{add_menu3}】：{menu3_num}個／{add_menu3_total}円<br>
     二次会：{nijikai_plan}【一人{nijikai_money}】：{nijikai_num}人／{nijikaitotal}円<br>
-    ------------------------------------------------------------<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合計金額：{Banquettotal}円<br><br>
+    ------------------------------------------------------------------------------------------------------<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合計金額：{Banquettotal}円<br><br>
     〖早割〗<br>
-    --------------------------------------------------------------<br>
+    ------------------------------------------------------------------------------------------------------<br>
     60日前にご予約の方は、10％割引<br>
     90日前にご予約の方は、15％割引となります<br>
     予約はお早めに！<br>
-    ---------------------------------------------------------------<br><br>
+    -------------------------------------------------------------------------------------------------------<br><br>
     ご予約はホームページから！<br>
     URL:<a href="https://8mantai.jp/">八幡平ハイツホームページ</a>
     
@@ -253,6 +253,7 @@ def Banquet_Send_email(name, email,all_num,courcename,courcemoney,staynum,roomgr
     
     server.send_message(msg)
     server.quit()
+    
     
 import os
 import json
