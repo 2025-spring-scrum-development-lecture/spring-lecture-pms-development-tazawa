@@ -94,25 +94,31 @@ class QuotationStay(ctk.CTkFrame):
         return self.text
             
     def change_button_event(self):  # 入力画面に戻るイベント
-        self.destroy()
-        # from auth import
+        pass
     
     def confirm_button_event(self):  # 確定ボタンのイベント(データ保存、メール送信、Topページへ)
-        self.storage = messagebox.askyesnocancel('データ保存', '見積り内容をjsonファイルに保存しますか？')
-        if self.storage:
+        self.storage = messagebox.askyesno('データ保存', '見積り内容をjsonファイルに保存しますか？')
+        if self.storage == True:
             from auth import stay_estimate_data
-        else:
+            stay_estimate_data(self.name, self.email, self.numAdult_list, self.numChild_list, self.numStay_list, self.room_list, self.dinner_list, self.planPrace_Adult_list, self.planPrace_Child_list, self.checkin_option_list, self.bedrockButh_option_list, self.peterAdult_option_list, self.peterChild_option_list, self.parkAdult_option_list, self.parkChild_option_list, self.tennis_option_list, self.hotSpringRental_option_list, self.dogone_option_list, self.numDog_list, self.dogoneSpa_option_list, self.total_list)
+        elif self.storage == False:
+            pass
+        # elif self.storage == None:
+            # self.create_widget()
             pass
         self.send_mail = messagebox.askyesno('メール送信', f'見積り結果を送信しますか？\n{self.email}に送信')
         if self.send_mail:
             from auth import Stay_Send_email 
-            Stay_Send_email( self.name, self.email, self.numAdult_list, self.numChild_list, self.numStay_list, self.room_list, self.dinner_list, self.planPrace_Adult_list, self.planPrace_Child_list, self.checkin_option_list, self.bedrockButh_option_list, self.peterAdult_option_list, self.peterChild_option_list, self.parkAdult_option_list, self.parkChild_option_list, self.tennis_option_list, self.hotSpringRental_option_list, self.dogone_option_list,self.numDog_list,self.dogoneSpa_option_list)
-    
-            for widget in self.master.winfo_children():
-                widget.destroy()
-                
+            Stay_Send_email( self.name, self.email, self.numAdult_list, self.numChild_list, self.numStay_list, self.room_list, self.dinner_list, self.planPrace_Adult_list, self.planPrace_Child_list, self.checkin_option_list, self.bedrockButh_option_list, self.peterAdult_option_list, self.peterChild_option_list, self.parkAdult_option_list, self.parkChild_option_list, self.tennis_option_list, self.hotSpringRental_option_list, self.dogone_option_list,self.numDog_list,self.dogoneSpa_option_list, self.total_list)               
         else:
             pass
+        # from auth import reset_quotationstay_entry
+        # reset_quotationstay_entry(self.master)
+        for widget in self.master.winfo_children():
+                widget.destroy()
+        import sys
+        sys.exit()
+        
     
 if __name__ == '__main__':
     root = ctk.CTk()
