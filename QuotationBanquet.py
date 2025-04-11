@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 
-class QuotationStay(ctk.CTkFrame):
+class Enkai_Cinfirm(ctk.CTkFrame):
     def __init__(self, master,name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money,staymoney,nostaymoney,nomitotal,nijikaitotal,roomgrade1total,roomgrade2total,add_menu1_total,add_menu2_total,add_menu3_total,Banquettotal):
         
         super().__init__(master)
@@ -171,5 +171,5 @@ class QuotationStay(ctk.CTkFrame):
     
 if __name__ == '__main__':
     root = ctk.CTk()
-    app = QuotationStay(root, name="ww", email="qwe",all_num=2,courcename="豪華コース",courcemoney=21600,staynum=1,roomgrade1=0,roomgrade2=0,roomgrade1num=0,roomgrade2num=0,nominum=0,nomitime=0,add_menu1=0,add_menu2=0,add_menu3=0,menu1_num=0,menu2_num=0,menu3_num=0,nijikai_plan="未選択",nijikai_num=0,nijikai_money=0,staymoney=21600,nostaymoney=0,nomitotal=0,nijikaitotal=0,roomgrade1total=0,roomgrade2total=0,add_menu1_total=0,add_menu2_total=0,add_menu3_total=0,Banquettotal=int(21600+0.7*(21600)))
+    app = Enkai_Cinfirm(root, name="ww", email="qwe",all_num=2,courcename="豪華コース",courcemoney=21600,staynum=1,roomgrade1=0,roomgrade2=0,roomgrade1num=0,roomgrade2num=0,nominum=0,nomitime=0,add_menu1=0,add_menu2=0,add_menu3=0,menu1_num=0,menu2_num=0,menu3_num=0,nijikai_plan="未選択",nijikai_num=0,nijikai_money=0,staymoney=21600,nostaymoney=0,nomitotal=0,nijikaitotal=0,roomgrade1total=0,roomgrade2total=0,add_menu1_total=0,add_menu2_total=0,add_menu3_total=0,Banquettotal=int(21600+0.7*(21600)))
     root.mainloop()
