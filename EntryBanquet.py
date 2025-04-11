@@ -484,7 +484,7 @@ class Enkai_Input(ctk.CTkFrame):
         email = self.customer_email       
         from auth import pagemove_entrybanquet_quotationbanquet
         self.destroy()
-        pagemove_entrybanquet_quotationbanquet(self, name, email,\
+        pagemove_entrybanquet_quotationbanquet(self.master, name, email,\
         all_num,cource_name,cource_money,staynum,\
                 roomgrade1_money,roomgrade2_money,roomgrade1_num,roomgrade2_num,\
         nominum,nomitime,add_menu1_money,add_menu2_money,add_menu3_money,add_menu1,add_menu2,add_menu3,nijikai_plan,nijikai_num,niji_money)

@@ -6,6 +6,7 @@ class Enkai_Cinfirm(ctk.CTkFrame):
         
         super().__init__(master)
         # お客様情報
+        
         self.name = name
         self.email = email
         
@@ -42,6 +43,14 @@ class Enkai_Cinfirm(ctk.CTkFrame):
         
         # 合計金額
         self.banquet_total = Banquettotal
+        
+        
+        self.roomgrade1 = roomgrade1
+        self.roomgrade2 = roomgrade2
+        self.menu1_num = menu1_num
+        self.menu2_num = menu2_num
+        self.menu3_num = menu3_num
+        self.nijikai_money = nijikai_money
         
         screen_width = master.winfo_screenwidth()
         screen_height = master.winfo_screenheight()
@@ -99,7 +108,7 @@ class Enkai_Cinfirm(ctk.CTkFrame):
         self.stay_prace = ctk.CTkLabel(frame, text=f'　 {self.staymoney}円', font=('Times', 16))
         self.stay_prace.place(relx=1.0, x=-100, y=210, anchor='e')
         
-        self.nostay_prace = ctk.CTkLabel(frame, text=f' 　{self.nostaymoney}円', font=('Times', 16))
+        self.nostay_prace = ctk.CTkLabel(frame, text=f' 　{int(self.nostaymoney)}円', font=('Times', 16))
         self.nostay_prace.place(relx=1.0, x=-100, y=245, anchor='e')
         
         # オプション
@@ -122,17 +131,17 @@ class Enkai_Cinfirm(ctk.CTkFrame):
         self.nomi_prace.place(relx=1.0, x=-100, y=450, anchor='e')
         
 
-        self.add_menu1_label = ctk.CTkLabel(frame, text=f'追加料理　八幡平牛ロースのしゃぶしゃぶ [ {self.add_menu1} 名様分 ]', font=('Times', 16))
+        self.add_menu1_label = ctk.CTkLabel(frame, text=f'追加料理　八幡平牛ロースのしゃぶしゃぶ [ {self.menu1_num} 名様分 ]', font=('Times', 16))
         self.add_menu1_label.place(x=100, y=505)
         self.add_menu1_prace = ctk.CTkLabel(frame, text=f'{self.add_menu1_money}円', font=('Times', 16))
         self.add_menu1_prace.place(relx=1.0, x=-100, y=520, anchor='e')
 
-        self.add_menu2_label = ctk.CTkLabel(frame, text=f'追加料理　大更ホルモン鍋 [ {self.add_menu2} × 二名様分 ]', font=('Times', 16))
-        self.add_menu2_label.place(x=100, y=545)
+        self.add_menu2_label = ctk.CTkLabel(frame, text=f'追加料理　大更ホルモン鍋 [ {self.menu2_num} × 二名様分 ]', font=('Times', 16))
+        self.add_menu2_label.place(x=100, y=545)    
         self.add_menu2_prace = ctk.CTkLabel(frame, text=f'{self.add_menu2_money}円', font=('Times', 16))
         self.add_menu2_prace.place(relx=1.0, x=-100, y=560, anchor='e')
 
-        self.add_menu3_label = ctk.CTkLabel(frame, text=f'追加料理　岩手県産牛の串焼き [ {self.add_menu3} 本 ]', font=('Times', 16))
+        self.add_menu3_label = ctk.CTkLabel(frame, text=f'追加料理　岩手県産牛の串焼き [ {self.menu3_num} 本 ]', font=('Times', 16))
         self.add_menu3_label.place(x=100, y=585)
         self.add_menu3_prace = ctk.CTkLabel(frame, text=f'{self.add_menu3_money}円', font=('Times', 16))
         self.add_menu3_prace.place(relx=1.0, x=-100, y=600, anchor='e')
@@ -153,23 +162,40 @@ class Enkai_Cinfirm(ctk.CTkFrame):
         
     def change_button_event(self):
         a=1
-        # from EntryBanquet import Enkai_Input
-        # self.destroy()
-        # Enkai_Input(self.master,self.name,self.email)
+        from EntryBanquet import Enkai_Input
+        self.destroy()
+        Enkai_Input(self.master,self.name,self.email)
     
     def confirm_button_event(self):
         self.storage = messagebox.askyesnocancel('データ保存', '見積り内容をjsonファイルに保存しますか？')
         if self.storage:
-            pass
+            from auth import Banquet_estimate_data
+            Banquet_estimate_data(self.name, self.email, self.all_num, self.cource_name, self.cource_money, self.staynum, 
+                          self.roomgrade1, self.roomgrade2, self.roomgrade1_num, self.roomgrade2_num, 
+                          self.nominum, self.nomitime, self.add_menu1, self.add_menu2, self.add_menu3, 
+                          self.menu1_num, self.menu2_num, self.menu3_num, self.nijikai_plan, self.nijikai_num, 
+                          self.nijikai_money, self.staymoney, self.nostaymoney, self.nomitotal, self.niji_money, 
+                          self.roomgrade_money1, self.roomgrade2_money, self.add_menu1_money , 
+                          self.add_menu2_money, self.add_menu3_money, self.banquet_total)
         else:
             pass
         self.send_mail = messagebox.askyesno('メール送信', f'見積り結果を送信しますか？\n{self.email}に送信')
         if self.send_mail:
-            pass
+            from auth import Banquet_Send_email
+            Banquet_Send_email(self.name, self.email, self.all_num, self.cource_name, self.cource_money, self.staynum, 
+                          self.roomgrade1, self.roomgrade2, self.roomgrade1_num, self.roomgrade2_num, 
+                          self.nominum, self.nomitime, self.add_menu1, self.add_menu2, self.add_menu3, 
+                          self.menu1_num, self.menu2_num, self.menu3_num, self.nijikai_plan, self.nijikai_num, 
+                          self.nijikai_money, self.staymoney, self.nostaymoney, self.nomitotal, self.niji_money, 
+                          self.roomgrade_money1, self.roomgrade2_money, self.add_menu1_money , 
+                          self.add_menu2_money, self.add_menu3_money, self.banquet_total)
+            
+            import sys
+            sys.exit()
         else:
             pass
     
 if __name__ == '__main__':
     root = ctk.CTk()
-    app = Enkai_Cinfirm(root, name="ww", email="qwe",all_num=2,courcename="豪華コース",courcemoney=21600,staynum=1,roomgrade1=0,roomgrade2=0,roomgrade1num=0,roomgrade2num=0,nominum=0,nomitime=0,add_menu1=0,add_menu2=0,add_menu3=0,menu1_num=0,menu2_num=0,menu3_num=0,nijikai_plan="未選択",nijikai_num=0,nijikai_money=0,staymoney=21600,nostaymoney=0,nomitotal=0,nijikaitotal=0,roomgrade1total=0,roomgrade2total=0,add_menu1_total=0,add_menu2_total=0,add_menu3_total=0,Banquettotal=int(21600+0.7*(21600)))
+    app = Enkai_Cinfirm(root)
     root.mainloop()

@@ -65,7 +65,6 @@ def pagemove_entrybanquet_quotationbanquet(self,name, email,all_num,courcename,c
 
     print(Banquettotal)
     
-    from QuotationBanquet import Enkai_Cinfirm
     Enkai_Cinfirm(self,name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money,staymoney,nostaymoney,nomitotal,nijikaitotal,roomgrade1total,roomgrade2total,add_menu1_total,add_menu2_total,add_menu3_total,Banquettotal)
 
 
