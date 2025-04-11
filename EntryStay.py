@@ -191,8 +191,8 @@ class EntryStay(ctk.CTkFrame):
         self.room = self.room_Entry.get()
         self.dinner = self.dinner_Entry.get()
         self.plan = self.calc_price(self.room, self.dinner)
-        self.planPrace_Adult = self.plan[0]
-        self.planPrace_Child = self.plan[1]
+        self.planPrace_Adult = self.plan[0] * self.numAdult
+        self.planPrace_Child = self.plan[1] * self.numChild
         # 大人と小学生の合計人数を計算する
         self.numPeople = self.numAdult + self.numChild
         # チェックボックスの判定

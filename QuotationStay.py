@@ -51,11 +51,11 @@ class QuotationStay(ctk.CTkFrame):
         self.confirm_button = ctk.CTkButton(self.master, text='確定してTopへ', font=('Times', 16), width=170, height=30, command=self.confirm_button_event)
         self.confirm_button.place(x=1080, y=10)
         # ベースフレームの作成(表示サイズの固定)
-        base_frame = ctk.CTkFrame(self.master, width=800, height=500)
-        base_frame.place(x=250, y=120)
+        base_frame = ctk.CTkFrame(self.master, width=880, height=500)
+        base_frame.place(x=210, y=120)
         base_frame.pack_propagate(False)
         # スクロールフレームの作成(スクロール機能の追加)
-        scrollable_frame = ctk.CTkScrollableFrame(base_frame, width=800, height=500)
+        scrollable_frame = ctk.CTkScrollableFrame(base_frame, width=880, height=500)
         scrollable_frame.pack(fill="both", expand=True)
         # 内部フレームの作成(レイアウト用)
         self.frame = ctk.CTkFrame(scrollable_frame, fg_color="transparent", height=500)
@@ -63,7 +63,7 @@ class QuotationStay(ctk.CTkFrame):
         self.frame.pack_propagate(False)
         # 見積結果の表示
         self.totalresult = ctk.CTkLabel(self.master, text=f'合計金額:{sum(self.total_list)}円', font=('Times', 20))
-        self.totalresult.place(x=250, y=80)
+        self.totalresult.place(x=210, y=80)
         # テキストの作成
         self.text = ''
         text = self.create_text()
@@ -84,13 +84,13 @@ class QuotationStay(ctk.CTkFrame):
                 self.text += f'\n\n{i+1}部屋目　{self.total_list[i]}円\n'
             self.text += f'【人数】{self.numAdult_list[i]+self.numChild_list[i]}名（大人{self.numAdult_list[i]}名／小学生{self.numChild_list[i]}名）\n'
             self.text += f'【ご宿泊】{self.numStay_list[i]}泊\n'
-            self.text += f'【お部屋<{self.room_list[i]}> × 夕食<{self.room_list[i]}> プラン】　{self.planPrace_Adult_list[i]+self.planPrace_Child_list[i]}円（大人:{self.planPrace_Adult_list[i]}円／小学生:{self.planPrace_Child_list[i]}円）\n'
+            self.text += f'【お部屋<{self.room_list[i]}> × 夕食<{self.dinner_list[i]}> プラン】　{self.planPrace_Adult_list[i]+self.planPrace_Child_list[i]}円（大人:{self.planPrace_Adult_list[i]}円／小学生:{self.planPrace_Child_list[i]}円）\n'
             self.text += f'【土曜日チェックインの追加料金】　{self.checkin_option_list[i]}円\n'
             self.text += f'【岩盤浴】　{self.bedrockButh_option_list[i]}円\n'
             self.text += f'【パターゴルフ】　{self.peterAdult_option_list[i]+self.peterChild_option_list[i]}円（大人:{self.peterAdult_option_list[i]}円／小学生:{self.peterChild_option_list[i]}円）\n'
             self.text += f'【パークゴルフ】　{self.parkAdult_option_list[i]+self.parkChild_option_list[i]}円（大人:{self.parkAdult_option_list[i]}円／小学生:{self.parkChild_option_list[i]}円）\n'
             self.text += f'【テニスコート利用】 {self.tennis_option_list[i]}円\n'
-            self.text += f'【ドッグワン】　{self.dogone_option_list[i]}円（{self.numDog_list[i]}匹、スパ利用料金{self.dogoneSpa_option_list[i]}円）'
+            self.text += f'【ドッグワン】　{self.dogone_option_list[i]}円（{self.numDog_list[i]}匹、ケージ代:{self.numDog_list[i]*1000}円／スパ利用料金:{self.dogoneSpa_option_list[i]}）'
         return self.text
             
     def change_button_event(self):  # 入力画面に戻るイベント
