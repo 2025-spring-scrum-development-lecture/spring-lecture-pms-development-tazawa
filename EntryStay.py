@@ -35,6 +35,11 @@ class EntryStay(ctk.CTkFrame):
         self.tennis_option_list = []
         self.hotSpringRental_option_list = []
         self.dogone_option_list = []
+        self.numDog_list = []
+        self.dogoneSpa_option_list = []
+        # ドッグワンオプション変数の初期値
+        self.numDog = 0
+        self.dogoneSpa_option = 0
         # ウィジェットの生成、入力チェック
         self.create_widget()
         self.check_option()
@@ -292,6 +297,8 @@ class EntryStay(ctk.CTkFrame):
             self.tennis_option_list[self.room_cnt-1] = self.tennis_option
             self.hotSpringRental_option_list[self.room_cnt-1] = self.hotSpringRental_option
             self.dogone_option_list[self.room_cnt-1] = self.dogone_option
+            self.numDog_list[self.room_cnt-1] = self.numDog
+            self.dogoneSpa_option_list[self.room_cnt-1] = self.dogoneSpa_option
         except:
             self.numAdult_list.insert(self.room_cnt-1, self.numAdult)
             self.numChild_list.insert(self.room_cnt-1, self.numChild)
@@ -309,6 +316,8 @@ class EntryStay(ctk.CTkFrame):
             self.tennis_option_list.insert(self.room_cnt-1, self.tennis_option)
             self.hotSpringRental_option_list.insert(self.room_cnt-1, self.hotSpringRental_option)
             self.dogone_option_list.insert(self.room_cnt-1, self.dogone_option)
+            self.numDog_list.insert(self.room_cnt-1,self.numDog)
+            self.dogoneSpa_option_list.insert(self.room_cnt-1,self.dogoneSpa_option)
         # 毎秒チェックする
         self.master.after(1000, self.check_option)
 
@@ -381,10 +390,12 @@ class EntryStay(ctk.CTkFrame):
         print(self.tennis_option_list)
         print(self.hotSpringRental_option_list)
         print(self.dogone_option_list)
+        print(self.numDog_list)
         
-        # from auth import pagemove_entrystay_quotationstay
-        # self.destroy()
-        # pagemove_entrystay_quotationstay(self.master, self.name, self.email, self.numAdult, self.numChild, self.numStay, self.room, self.dinner, self.planPrace_Adult, self.planPrace_Child, self.checkin_option, self.bedrockButh_option, self.peterAdult_option, self.peterChild_option, self.parkAdult_option, self.parkChild_option, self.tennis_option, self.hotSpringRental_option, self.dogone_option)
+        from auth import pagemove_entrystay_quotationstay
+        for widget in self.master.winfo_children():
+            widget.destroy()
+        pagemove_entrystay_quotationstay(self.master, self.name, self.email, self.numAdult_list, self.numChild_list, self.numStay_list, self.room_list, self.dinner_list, self.planPrace_Adult_list, self.planPrace_Child_list, self.checkin_option_list, self.bedrockButh_option_list, self.peterAdult_option_list, self.peterChild_option_list, self.parkAdult_option_list, self.parkChild_option_list, self.tennis_option_list, self.hotSpringRental_option_list, self.dogone_option_list,self.numDog_list,self.dogoneSpa_option_list)
 
 if __name__ == '__main__':
     root = ctk.CTk()

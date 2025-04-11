@@ -1,9 +1,9 @@
 from SelectPurpose import SelectPurpose
 from TopPage import TopPage
-form EntryStay import EntryStay
-form EntryBanquet import Enkai_Input
+from EntryStay import EntryStay
+from EntryBanquet import Enkai_Input
 from QuotationStay import QuotationStay
-from QuotationBanquet import Enkai_Cinfirm
+# from QuotationBanquet import Enkai_Cinfirm
 
 # トップページから利用用途画面へ
 def pagemove_top_select(self,name,email):
@@ -20,31 +20,34 @@ def pagemove_select_entrybanquet(self,name,email):
 
 # # 宿泊入力画面から宿泊見積画面へ
 def pagemove_entrystay_quotationstay(self,name, email,numAdult,numChild,numStay,room,dinner,Adultplan,Childplan,checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numdog, dogoneSpa):
-    for i in range()
-        quotationtotal = numAdult * Adultplan * numStay + checkin_option + bedrockButh_option + peterAdult_option + parkAdult_option + tennis_option + hotSpringRental_option + dogone_option + numChild * Childplan * numStay + checkin_option + bedrockButh_option + peterChild_option + parkChild_option + tennis_option + hotSpringRental_option + dogone_option
+    quotationtotal_list=[]
+    for i in range(len(numAdult)):
+        quotationtotal = int(numAdult[i]) * (Adultplan[i]) * int(numStay[i]) + int(checkin_option[i]) + int(bedrockButh_option[i]) + int(peterAdult_option[i]) + int(parkAdult_option[i]) + int(tennis_option[i]) + int(hotSpringRental_option[i]) + int(numChild[i]) * int(Childplan[i]) * int(numStay[i]) + int(checkin_option[i]) + int(bedrockButh_option[i]) + int(peterChild_option[i]) + int(parkChild_option[i]) + int(tennis_option[i]) + int(hotSpringRental_option[i]) + int(dogone_option[i])
+        quotationtotal_list.append(quotationtotal)
+        
     
-    QuotationStay(self,name, email,numAdult,numChild,numStay,room,dinner,Adultplan,Childplan,checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numdog, dogoneSpa,quotationtotal)
+    QuotationStay(self,name, email,numAdult,numChild,numStay,room,dinner,Adultplan,Childplan,checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numdog, dogoneSpa,quotationtotal_list)
 # # 宴会入力画面から宴会見積画面へ
-def pagemove_entrybanquet_quotationbanquet(self,name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money):
+# def pagemove_entrybanquet_quotationbanquet(self,name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money):
     
-    nostay =  all_num - staynum
-    staymoney = staynum * courcemoney
-    nostaymoney =  nostay * 0.7 * courcemoney
-    nomitotal = ((nomitime // 2) + (nomitime % 2)) * 2800 * nominum
-    nijikaitotal = nijikai_num * nijikai_money
-    roomgrade1total = roomgrade1 * roomgrade1num 
-    roomgrade2total = roomgrade2 * roomgrade2num
-    add_menu1_total = add_menu1*menu1_num
-    add_menu2_total = add_menu2*menu2_num
-    add_menu3_total = add_menu3*menu3_num
+#     nostay =  all_num - staynum
+#     staymoney = staynum * courcemoney
+#     nostaymoney =  nostay * 0.7 * courcemoney
+#     nomitotal = ((nomitime // 2) + (nomitime % 2)) * 2800 * nominum
+#     nijikaitotal = nijikai_num * nijikai_money
+#     roomgrade1total = roomgrade1 * roomgrade1num 
+#     roomgrade2total = roomgrade2 * roomgrade2num
+#     add_menu1_total = add_menu1*menu1_num
+#     add_menu2_total = add_menu2*menu2_num
+#     add_menu3_total = add_menu3*menu3_num
     
-    Banquettotal =  staymoney + nostaymoney + nomitotal + add_menu1_total + add_menu2_total + add_menu3_total + nijikaitotal + roomgrade1total + roomgrade2total
-    
-    
+#     Banquettotal =  staymoney + nostaymoney + nomitotal + add_menu1_total + add_menu2_total + add_menu3_total + nijikaitotal + roomgrade1total + roomgrade2total
     
     
     
-    Enkai_Cinfirm(self,name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money,staymoney,nostaymoney,nomitotal,nijikaitotal,roomgrade1total,roomgrade2total,add_menu1_total,add_menu2_total,add_menu3_total,Banquettotal)
+    
+    
+#     Enkai_Cinfirm(self,name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money,staymoney,nostaymoney,nomitotal,nijikaitotal,roomgrade1total,roomgrade2total,add_menu1_total,add_menu2_total,add_menu3_total,Banquettotal)
 
 #見積もり画面から入力画面に行く
 def retuen_quotationstay_entrystay(self,name, email,numAdult,numChild,room,dinner,numStay,Adultplan,Childplan,checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numdog, dogoneSpa):
