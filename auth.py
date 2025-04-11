@@ -18,8 +18,8 @@ def pagemove_select_entrybanquet(self,name,email):
     Enkai_Input(self,name,email)
     
 #確認画面からトップ
-def reset_quotationstay_entry():
-    TopPage()
+def reset_quotationstay_entry(self):
+    TopPage(self)
 
 #見積もり画面から入力画面に行く
 def retuen_quotationstay_entrystay(self,name, email,numAdult,numChild,room,dinner,numStay,Adultplan,Childplan,checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numdog, dogoneSpa):
@@ -52,8 +52,8 @@ def pagemove_entrybanquet_quotationbanquet(self,name, email,all_num,courcename,c
     
     nostay =  all_num - staynum
     staymoney = staynum * courcemoney
-    nostaymoney =  nostay * 0.7 * courcemoney
-    nomitotal = ((nomitime // 2) + (nomitime % 2)) * 2800 * nominum
+    nostaymoney =  nostay * (0.7 * courcemoney)
+    nomitotal = (((nomitime // 2) + (nomitime % 2)) * 2800) * nominum
     nijikaitotal = nijikai_num * nijikai_money
     roomgrade1total = roomgrade1 * roomgrade1num 
     roomgrade2total = roomgrade2 * roomgrade2num
@@ -61,12 +61,11 @@ def pagemove_entrybanquet_quotationbanquet(self,name, email,all_num,courcename,c
     add_menu2_total = add_menu2*menu2_num
     add_menu3_total = add_menu3*menu3_num
     
-    Banquettotal =  staymoney + nostaymoney + nomitotal + add_menu1_total + add_menu2_total + add_menu3_total + nijikaitotal + roomgrade1total + roomgrade2total
+    Banquettotal =  int(staymoney + nostaymoney + nomitotal + add_menu1_total + add_menu2_total + add_menu3_total + nijikaitotal + roomgrade1total + roomgrade2total)
+
+    print(Banquettotal)
     
-    
-    
-    
-    
+    from QuotationBanquet import Enkai_Cinfirm
     Enkai_Cinfirm(self,name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money,staymoney,nostaymoney,nomitotal,nijikaitotal,roomgrade1total,roomgrade2total,add_menu1_total,add_menu2_total,add_menu3_total,Banquettotal)
 
 
@@ -78,7 +77,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 #宿泊のメール送信
-def Stay_Send_email(name, email,numAdult,numChild,room,dinner,numStay,Adultplan,Childplan,checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numdog, dogoneSpa,quotationtotal):#見積もり結果、日付、見積もりの内容
+def Stay_Send_email(name, email,numAdult,numChild,numStay,room,dinner,Adultplan,Childplan,checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numdog, dogoneSpa,quotationtotal):#見積もり結果、日付、見積もりの内容
 
     # リストを辞書に変換
     room_details = {
@@ -147,15 +146,15 @@ def Stay_Send_email2(name, email,room_data):
             <li>人数：大人 {room['numAdult']} 名 / 子供 {room['numChild']} 名</li>
             <li>泊数：{room['numStay']}泊</li>
             <li>部屋：{room['room']}、夕食：{room['dinner']}</li>
-            <li>プラン：大人 {room['Adultplan']} / 子供 {room['Childplan']}</li>
-            <li>チェックイン：{room['checkin_option']}</li>
-            <li>岩盤浴：{room['bedrockButh_option']}</li>
-            <li>パターゴルフ：大人 {room['peterAdult_option']} / 子供 {room['peterChild_option']}</li>
-            <li>パークゴルフ：大人 {room['parkAdult_option']} / 子供 {room['parkChild_option']}</li>
-            <li>テニス：{room['tennis_option']}</li>
-            <li>貸し切り温泉：{room['hotSpringRental_option']}</li>
+            <li>プラン：大人 {room['Adultplan']}円 / 子供 {room['Childplan']}円</li>
+            <li>チェックイン：{room['checkin_option']}円</li>
+            <li>岩盤浴：{room['bedrockButh_option']}円</li>
+            <li>パターゴルフ：大人 {room['peterAdult_option']}円 / 子供 {room['peterChild_option']}円</li>
+            <li>パークゴルフ：大人 {room['parkAdult_option']}円 / 子供 {room['parkChild_option']}円</li>
+            <li>テニス：{room['tennis_option']}円</li>
+            <li>貸し切り温泉：{room['hotSpringRental_option']}円</li>
             <li>ドッグわん：{room['numdog']} 匹（{room['dogone_option']}円）</li>
-            <li>スパ利用：{room['dogoneSpa']}</li>
+            <li>スパ利用：{room['dogoneSpa']}円</li>
             <li><strong>部屋ごとの合計金額：{room['quotationtotal']}円</strong></li>
         </ul>
         '''
@@ -258,17 +257,16 @@ def Banquet_Send_email(name, email,all_num,courcename,courcemoney,staynum,roomgr
 import os
 import json
 
-def stay_estimate_data(name, email, numAdult, numChild, room, dinner, numStay, 
+def stay_estimate_data(name, email, numAdult, numChild, numStay, room, dinner,
                        Adultplan, Childplan, checkin_option, bedrockButh_option, 
                        peterAdult_option, peterChild_option, parkAdult_option, 
                        parkChild_option, tennis_option, hotSpringRental_option, 
-                       dogone_option, quotationtotal):
+                       dogone_option,numdog,dogoneSpa, quotationtotal):
 
     # **リストの長さをチェック**
     list_data = [numAdult, numChild, room, dinner, numStay, Adultplan, Childplan, checkin_option, 
                  bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, 
-                 parkChild_option, tennis_option, hotSpringRental_option, dogone_option, 
-                 quotationtotal]
+                 parkChild_option, tennis_option, hotSpringRental_option, dogone_option,numdog,dogoneSpa,quotationtotal]
     
     if len(set(map(len, list_data))) != 1:
         raise ValueError("リストの長さが一致していません")
@@ -313,6 +311,8 @@ def stay_estimate_data(name, email, numAdult, numChild, room, dinner, numStay,
                 'テニス': tennis_option[i],
                 '貸し切り風呂': hotSpringRental_option[i],
                 'ドックわん': dogone_option[i],
+                '匹': dogone_option[i],
+                'ドックスパ': dogone_option[i],
                 '合計金額': quotationtotal[i],
             }
         }
