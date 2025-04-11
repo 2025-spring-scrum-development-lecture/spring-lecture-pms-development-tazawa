@@ -3,7 +3,7 @@ from TopPage import TopPage
 from EntryStay import EntryStay
 from EntryBanquet import Enkai_Input
 from QuotationStay import QuotationStay
-# from QuotationBanquet import Enkai_Cinfirm
+from QuotationBanquet import Enkai_Cinfirm
 
 # トップページから利用用途画面へ
 def pagemove_top_select(self,name,email):
