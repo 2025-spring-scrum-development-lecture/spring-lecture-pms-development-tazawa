@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox
 
 class QuotationStay(ctk.CTkFrame):
-    def __init__(self, master, name, email, numAdult, numChild, numStay, room, dinner, planPrace_Adult, planPrace_Child, checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numDog, dogoneSpa , total):
+    def __init__(self, master, name, email, numAdult, numChild, numStay, room, dinner, planPrace_Adult, planPrace_Child, checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, total):
         
         super().__init__(master)
         
@@ -140,17 +140,12 @@ class QuotationStay(ctk.CTkFrame):
     def confirm_button_event(self):  # 確定ボタンのイベント(データ保存、メール送信、Topページへ)
         self.storage = messagebox.askyesnocancel('データ保存', '見積り内容をjsonファイルに保存しますか？')
         if self.storage:
-            from auth import stay_estimate_data
+            pass
         else:
             pass
         self.send_mail = messagebox.askyesno('メール送信', f'見積り結果を送信しますか？\n{self.email}に送信')
         if self.send_mail:
-            from auth import Stay_Send_email 
-            Stay_Send_email( self.name, self.email, self.numAdult_list, self.numChild_list, self.numStay_list, self.room_list, self.dinner_list, self.planPrace_Adult_list, self.planPrace_Child_list, self.checkin_option_list, self.bedrockButh_option_list, self.peterAdult_option_list, self.peterChild_option_list, self.parkAdult_option_list, self.parkChild_option_list, self.tennis_option_list, self.hotSpringRental_option_list, self.dogone_option_list,self.numDog_list,self.dogoneSpa_option_list)
-    
-            for widget in self.master.winfo_children():
-                widget.destroy()
-                
+            pass
         else:
             pass
     
