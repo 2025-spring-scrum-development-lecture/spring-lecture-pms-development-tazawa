@@ -46,6 +46,7 @@ class EntryStay(ctk.CTkFrame):
         self.create_widget()
         self.check_option()
         self.validation_check()
+        self.update_room_options()
 
 
     def create_widget(self):  # 入力フォーム以外のウィジェット(1回目だけ)
@@ -103,11 +104,13 @@ class EntryStay(ctk.CTkFrame):
         self.numAdult_menu = [1, 2, 3, 4, 5, 6]
         self.numAdult_Entry = ctk.CTkOptionMenu(self.frame, values=[str(num) for num in self.numAdult_menu], width=60, height=25, font=('Times', 16), command=self.update_numChild_menu)
         self.numAdult_Entry.place(x=150, y=40)
+        # self.numAdult_Entry.bind('<FocusOut>', lambda event: self.update_room_options())
         self.numChild_label = ctk.CTkLabel(self.frame, text='小学生', font=('Times', 16))
         self.numChild_label.place(x=240, y=40)
         self.numChild_menu = [0, 1, 2, 3, 4, 5]
         self.numChild_Entry = ctk.CTkOptionMenu(self.frame, values=[str(num) for num in self.numChild_menu], width=60, height=25, font=('Times', 16))
         self.numChild_Entry.place(x=310, y=40)
+        # self.numChild_Entry.bind('<FocusOut>', lambda event: self.update_room_options())
         # 泊数(self.numStay)
         self.numStay_label = ctk.CTkLabel(self.frame, text='泊数', font=('Times', 20))
         self.numStay_label.place(x=10, y=80)
@@ -120,8 +123,17 @@ class EntryStay(ctk.CTkFrame):
         # 部屋プラン(self.room)
         self.room_label = ctk.CTkLabel(self.frame, text='お部屋', font=('Times', 20))
         self.room_label.place(x=10, y=120)
-        room_menu = ['本館和室7.5畳', '西館洋室(ツイン)', '岩手山側和室', '岩手山側露天風呂付き和室', '西館和室10畳', '檜内風呂付き和洋室', '西館和洋室', '西館和室28畳']
-        self.room_Entry = ctk.CTkOptionMenu(self.frame, values=[room for room in room_menu], font=('Times', 16))
+        self.room_menu = {
+            '本館和室7.5畳': {'min': 1, 'max': 2},
+            '西館洋室(ツイン)': {'min': 2, 'max': 2},
+            '岩手山側和室': {'min': 2, 'max': 5},
+            '岩手山側露天風呂付き和室': {'min': 2, 'max': 5},
+            '西館和室10畳': {'min': 2, 'max': 5},
+            '檜内風呂付き和洋室': {'min': 2, 'max': 6},
+            '西館和洋室': {'min': 2, 'max': 6},
+            '西館和室28畳': {'min': 2, 'max': 6},
+        }
+        self.room_Entry = ctk.CTkOptionMenu(self.frame, values=[room for room in self.room_menu], font=('Times', 16))
         self.room_Entry.place(x=80, y=120)
         # 夕食プラン(self.dinner)
         self.dinner_label = ctk.CTkLabel(self.frame, text='ご夕食', font=('Times', 20))
@@ -168,6 +180,34 @@ class EntryStay(ctk.CTkFrame):
                 self.numChild_Entry.set(str(numChild_max))
         except Exception as e:
             print(f"Error updating child options: {e}")
+
+
+    def filter_rooms(self, num_adult, num_child):
+        total_people = num_adult + num_child
+        valid_rooms = [room for room, capacity in self.room_menu.items() if capacity['min'] <= total_people <= capacity['max']]
+        return valid_rooms
+    
+    
+    def update_room_options(self):
+        try:
+            num_adult_prv = num_adult
+            num_child_prv = num_child
+        except NameError:
+            num_adult_prv = -1
+            num_child_prv = 0
+        num_adult = int(self.numAdult_Entry.get())
+        num_child = int(self.numChild_Entry.get())
+        if num_adult_prv != num_adult or num_child_prv != num_child:
+            valid_rooms = self.filter_rooms(num_adult, num_child)
+            if set(valid_rooms) != set(self.room_Entry.cget('values')):
+                # プルダウンの内容を更新
+                self.room_Entry.configure(values=valid_rooms)
+                if valid_rooms:
+                    self.room_Entry.set(valid_rooms[0])  # デフォルト値を先頭に設定
+                else:
+                    self.room_Entry.set('選択できる部屋がありません')
+        # 毎秒チェックする
+        self.master.after(1000, self.update_room_options)
 
     
     def check_option(self):  # オプション選択の有無のチェック、金額の計算
