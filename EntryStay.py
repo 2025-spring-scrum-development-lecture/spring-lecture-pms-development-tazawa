@@ -40,13 +40,15 @@ class EntryStay(ctk.CTkFrame):
         # ドッグワンオプション変数の初期値
         self.numDog = 0
         self.dogoneSpa_option = 0
+        # バリデーションチェックのフラグ
+        self.validation_flag = True
         # ウィジェットの生成、入力チェック
         self.create_widget()
         self.check_option()
+        self.validation_check()
 
 
-    def create_widget(self):
-        # 入力フォーム以外のウィジェット(1回目だけ)
+    def create_widget(self):  # 入力フォーム以外のウィジェット(1回目だけ)
         if self.room_cnt == 1:
             self.guest_label = ctk.CTkLabel(self.master, text=f'{self.name}様〖{self.email}〗', font=('Times', 20))
             self.guest_label.place(x=20, y=10)
@@ -67,7 +69,7 @@ class EntryStay(ctk.CTkFrame):
         self.create_room_frame()
 
 
-    def create_room_frame(self):
+    def create_room_frame(self):  # 部屋フレームのレイアウト
         # 行番号と列番号を計算
         self.row = (self.room_cnt - 1) // 3
         self.col = (self.room_cnt - 1) % 3
@@ -152,7 +154,7 @@ class EntryStay(ctk.CTkFrame):
         self.update_numChild_menu("1")
 
 
-    def update_numChild_menu(self, about_value):
+    def update_numChild_menu(self, about_value):  # 小学生の人数のプルダウンを更新
         try:
             # 大人の人数を取得
             numAdult = int(about_value)
@@ -366,7 +368,7 @@ class EntryStay(ctk.CTkFrame):
         return self.plan
 
 
-    def add_room_event(self):
+    def add_room_event(self):  # 部屋の追加
         # 部屋数のインクリメント
         self.room_cnt += 1
         # 新しいフレームを作る
@@ -391,11 +393,23 @@ class EntryStay(ctk.CTkFrame):
         print(self.hotSpringRental_option_list)
         print(self.dogone_option_list)
         print(self.numDog_list)
-        
+            
         from auth import pagemove_entrystay_quotationstay
         for widget in self.master.winfo_children():
             widget.destroy()
         pagemove_entrystay_quotationstay(self.master, self.name, self.email, self.numAdult_list, self.numChild_list, self.numStay_list, self.room_list, self.dinner_list, self.planPrace_Adult_list, self.planPrace_Child_list, self.checkin_option_list, self.bedrockButh_option_list, self.peterAdult_option_list, self.peterChild_option_list, self.parkAdult_option_list, self.parkChild_option_list, self.tennis_option_list, self.hotSpringRental_option_list, self.dogone_option_list,self.numDog_list,self.dogoneSpa_option_list)
+
+
+    def validation_check(self):  # バリデーションチェック
+        try:
+            numStay = int(self.numStay_Entry.get())
+            numDog = int(self.numDog_Entry.get())
+            self.quotation_button.configure(state='normal')
+            # self.validation_flag = True
+        except ValueError:
+            self.quotation_button.configure(state='disabled')
+        # 毎秒チェックする
+        self.master.after(1000, self.validation_check)
 
 if __name__ == '__main__':
     root = ctk.CTk()
