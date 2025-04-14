@@ -87,7 +87,7 @@ class Enkai_Input(ctk.CTkFrame):
             checkbox_width=15,checkbox_height=15,command=self.bottomless_cup_plan)
         self.option_bottomless_cup.place(x=80,y=348)
         
-        self.bottomlesscup_num = ctk.CTkComboBox(self,values=[str(i) for i in range(1,int(self.np_combo.get())+1)],state="readonly")
+        self.bottomlesscup_num = ctk.CTkComboBox(self,values=[str(i) for i in range(1,int(self.np_combo.get())+1)],state="readonly",command=self.np_sp)
         self.bottomlesscup_num.set("0")
         self.bottomlesscup_num.configure(state="disable")
         self.bottomlesscup_num.place(x=9,y=375)
@@ -150,7 +150,7 @@ class Enkai_Input(ctk.CTkFrame):
         self.Niji_plan.place(x=9,y=560)
         self.label_Niji1 = ctk.CTkLabel(self,text="コース",font=("Times",12,"bold"))
         self.label_Niji1.place(x=150,y=563)
-        self.Niji_num  = ctk.CTkComboBox(self,values=[str(i) for i in range(1,int(self.np_combo.get())+1)],state="readonly",font=("Times",12,"bold"),width=90)
+        self.Niji_num  = ctk.CTkComboBox(self,values=[str(i) for i in range(1,int(self.np_combo.get())+1)],state="readonly",font=("Times",12,"bold"),width=90,command=self.np_sp)
         self.Niji_num.set("0")
         self.Niji_num.configure(state="disable")
         self.Niji_num.place(x=200,y=560)
@@ -282,36 +282,58 @@ class Enkai_Input(ctk.CTkFrame):
         from SelectPurpose import SelectPurpose
         self.destroy()
         SelectPurpose(self.master,self.customer_name,self.customer_email)  
-    # 入力の正弦
+    # 入力の制限
     # mowmumはエラー回避のためだけのやつなのでそのままでおｋ（コマンド実行時に引数を渡してる）
     def np_sp(self,now_num):
         a = self.np_combo.get()
         st = self.stay_num_conbo.get()
         r1 = self.roomgrade_num1.get()
         r2 = self.roomgrade_num2.get()
-        print(r1.isdecimal())
+        nomi = self.bottomlesscup_num.get()
+        ni = self.Niji_num.get()
+
         if a.isdecimal() == False:
             print("error_all")
             a = "0"
+            self.np_combo.set("2")
+            self.stay_num_conbo.set("0")
+            self.roomgrade_num1.set("0")
+            self.roomgrade_num2.set("0")
+            self.bottomlesscup_num.set("0")
+            self.Niji_num.set("0")
             
         if st.isdecimal() == False:
-            print("error_all")
+            print("error_stay")
             st = "0"
+            self.stay_num_conbo.set("0")
         elif int(st) > int(a):
             self.stay_num_conbo.set(int(a))
             st = self.stay_num_conbo.get()
             
         if r1.isdecimal() == False:
             print("error_op1")
-            r1 = "0"
+            self.roomgrade_num1.set(int(st))
         elif int(r1) > int(st):
             self.roomgrade_num1.set(int(st))
             
         if r2.isdecimal() == False:
             print("error_op2")
-            r2 = "0"
+            self.roomgrade_num2.set("0")
         elif int(r2) > int(st)-int(r1):
             self.roomgrade_num2.set("0")
+            
+        if nomi.isdecimal() == False:
+            print("error_nijika")
+            self.bottomlesscup_num.set("0")
+        elif int(ni) > int(a):
+            self.bottomlesscup_num.set("0")
+            
+        if ni.isdecimal() == False:
+            print("error_nijika")
+            self.Niji_num.set("0")
+        elif int(ni) > int(a):
+            self.Niji_num.set("0")
+        
         self.stay_num_conbo.configure(values = [str(i) for i in range(int(a)+1)] )
         self.roomgrade_num1.configure(values = [str(i) for i in range(int(st)+1-int(r2))] )
         self.roomgrade_num2.configure(values = [str(i) for i in range(int(st)+1-int(r1))] )
@@ -327,11 +349,16 @@ class Enkai_Input(ctk.CTkFrame):
         # 全体の人数
         self.all_num = self.np_combo.get()
         if self.all_num.isdecimal():
-            pass
+            if int(self.all_num) >= 2:
+                pass
+            else:
+                check_clear_flag +=1
+                bad_list.append("人数")
         else:
             # check_clear_flag +=1
             # bad_list.append("人数")
             # ここだめだとダメなので帰します一旦
+            msb.showerror("エラー","不正な入力：\n人数")
             return
             
         # コース名
