@@ -198,7 +198,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 def Banquet_Send_email(name, email,all_num,courcename,courcemoney,staynum,roomgrade1,roomgrade2,roomgrade1num,roomgrade2num,nominum,nomitime,add_menu1,add_menu2,add_menu3,menu1_num,menu2_num,menu3_num,nijikai_plan,nijikai_num,nijikai_money,staymoney,nostaymoney,nomitotal,nijikaitotal,roomgrade1total,roomgrade2total,add_menu1_total,add_menu2_total,add_menu3_total,Banquettotal):#見積もり結果、日付、見積もりの内容
     # メールアカウントの設定
-    ID = 'h.komame.sys24@morijyobi.ac.jp'
+    ID = 'a.tazawa.sys24@morijyobi.ac.jp'
     PASS = os.environ['MAIL_PASS']
     HOST = 'smtp.gmail.com'
     PORT = 587
