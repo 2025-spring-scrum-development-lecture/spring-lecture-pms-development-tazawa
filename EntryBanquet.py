@@ -28,9 +28,7 @@ class Enkai_Input(ctk.CTkFrame):
         
         self.l1 = ctk.CTkLabel(self,text="人数",font=("Times",16,"bold"))
         self.l1.place(x=25,y=60)
-        self.np = []
-        for i in range(2,21):
-            self.np.append(i)
+        self.np = [2,10,20,30,40,50,100,200]
         self.np_combo = ctk.CTkComboBox(self,values=[str(num)for num in self.np],border_color="#62D176",button_color="#62D176",button_hover_color="green",\
             command=self.np_sp)
         self.np_combo.place(x=10,y=90)
@@ -46,7 +44,7 @@ class Enkai_Input(ctk.CTkFrame):
         self.l3.place(x=240,y=60)
         # サイトで絞り込みするときの人数(1~10)
         self.np = [0,1,2,3,4,5,6,7,8,9,10]
-        self.stay_num_conbo = ctk.CTkComboBox(self,values=[str(i) for i in range(int(self.np_combo.get())+1)],state='readonly',border_color="#62D176",button_color="#62D176",button_hover_color="green",\
+        self.stay_num_conbo = ctk.CTkComboBox(self,values=[str(i) for i in range(int(self.np_combo.get())+1)],state='normal',border_color="#62D176",button_color="#62D176",button_hover_color="green",\
             command=self.np_sp)
         self.stay_num_conbo.set(self.np_combo.get())
         self.stay_num_conbo.place(x=240,y=90)
@@ -106,7 +104,7 @@ class Enkai_Input(ctk.CTkFrame):
         self.l7 = ctk.CTkLabel(self,text="追加料理",font=("Times",16,"bold"))
         self.l7.place(x=9,y=415)
         
-        self.sara = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+        self.sara = [10,20,30,40,50,60,70,80,90,100,200,300]
         self.additional_dishes1_state = ctk.BooleanVar()
         self.additional_dishes1 = ctk.CTkCheckBox(self,text="八幡平牛ロースのしゃぶしゃぶ",font=("Times",12,"bold"),checkbox_width=15,checkbox_height=15,command=self.additional_dishes_add1,variable=self.additional_dishes1_state)
         self.additional_dishes_num1 = ctk.CTkComboBox(self,values=[str(num)for num in self.sara])
@@ -189,20 +187,20 @@ class Enkai_Input(ctk.CTkFrame):
     #お部屋グレード 
     def rg_num(self):
         if self.option_room_grade_status1.get():
-            self.roomgrade_num1.configure(state='readonly',border_color="#62D176",button_color="#62D176",button_hover_color="green")
+            self.roomgrade_num1.configure(state='normal',border_color="#62D176",button_color="#62D176",button_hover_color="green")
         else:
             self.roomgrade_num1.set("0")
             self.roomgrade_num1.configure(state="disable",border_color="gray",button_color="gray",button_hover_color="gray")     
     def rg_num2(self):
         if self.option_room_grade_status2.get():
-            self.roomgrade_num2.configure(state="readonly",border_color="#62D176",button_color="#62D176",button_hover_color="green")
+            self.roomgrade_num2.configure(state="normal",border_color="#62D176",button_color="#62D176",button_hover_color="green")
         else:
             self.roomgrade_num2.set("0")
             self.roomgrade_num2.configure(state="disable",border_color="gray",button_color="gray",button_hover_color="gray")
     #酒飲み放題
     def bottomless_cup_plan(self):
         if self.option_bottomless_cup_state.get():
-            self.bottomlesscup_num.configure(state="readonly",border_color="#62D176",button_color="#62D176",button_hover_color="green")
+            self.bottomlesscup_num.configure(state="normal",border_color="#62D176",button_color="#62D176",button_hover_color="green")
             self.bottomlesscup_hour.configure(state="readonly",border_color="#62D176",button_color="#62D176",button_hover_color="green")
         else:
             self.bottomlesscup_num.set("0")
@@ -232,7 +230,7 @@ class Enkai_Input(ctk.CTkFrame):
     def Niji_input(self):
         if self.Niji_state.get():
             self.Niji_plan.configure(state="readonly",border_color="#62D176",button_color="#62D176",button_hover_color="green")
-            self.Niji_num.configure(state="readonly",border_color="#62D176",button_color="#62D176",button_hover_color="green")
+            self.Niji_num.configure(state="normal",border_color="#62D176",button_color="#62D176",button_hover_color="green")
         else:
             self.Niji_plan.set("未選択")
             self.Niji_plan.configure(state="disable",border_color="gray",button_color="gray",button_hover_color="gray")
@@ -283,7 +281,7 @@ class Enkai_Input(ctk.CTkFrame):
         self.destroy()
         SelectPurpose(self.master,self.customer_name,self.customer_email)  
     # 入力の制限
-    # mowmumはエラー回避のためだけのやつなのでそのままでおｋ（コマンド実行時に引数を渡してる）
+    # nowmumはエラー回避のためだけのやつなのでそのままでおｋ（コマンド実行時に引数を渡してる）
     def np_sp(self,now_num):
         a = self.np_combo.get()
         st = self.stay_num_conbo.get()
@@ -326,19 +324,19 @@ class Enkai_Input(ctk.CTkFrame):
             print("error_nijika")
             self.bottomlesscup_num.set("0")
         elif int(ni) > int(a):
-            self.bottomlesscup_num.set("0")
+            self.bottomlesscup_num.set(a)
             
         if ni.isdecimal() == False:
             print("error_nijika")
             self.Niji_num.set("0")
         elif int(ni) > int(a):
-            self.Niji_num.set("0")
+            self.Niji_num.set(a)
         
-        self.stay_num_conbo.configure(values = [str(i) for i in range(int(a)+1)] )
-        self.roomgrade_num1.configure(values = [str(i) for i in range(int(st)+1-int(r2))] )
-        self.roomgrade_num2.configure(values = [str(i) for i in range(int(st)+1-int(r1))] )
-        self.bottomlesscup_num.configure(values = [str(i) for i in range(int(a)+1)] )
-        self.Niji_num.configure(values = [str(i) for i in range(int(a)+1)] )
+        self.stay_num_conbo.configure(values = [str(i) for i in range(0,int(a)+1,10)] )
+        self.roomgrade_num1.configure(values = [str(i) for i in range(0,int(st)+1-int(r2),10)] )
+        self.roomgrade_num2.configure(values = [str(i) for i in range(0,int(st)+1-int(r1),10)] )
+        self.bottomlesscup_num.configure(values = [str(i) for i in range(0,int(a)+1,10)] )
+        self.Niji_num.configure(values = [str(i) for i in range(0,int(a)+1,10)] )
         
     def check_info(self):
         # 0だと確認画面に
@@ -403,11 +401,18 @@ class Enkai_Input(ctk.CTkFrame):
                 bad_list.append("飲み放題の人数")
             else:
                 pass
+        else:
+            check_clear_flag += 1
+            bad_list.append("飲み放題の人数")
+            self.nominum = "0"
         
         # 飲み放題時間
         self.nomitime = self.bottomlesscup_hour.get()
         if self.nomitime.isdecimal():
-            pass
+            if int(self.nominum) == 0:
+                self.nomitime = "0"
+            else:
+                pass
         else:
             check_clear_flag += 1
             bad_list.append("飲み放題時間")
@@ -434,16 +439,28 @@ class Enkai_Input(ctk.CTkFrame):
             check_clear_flag+=1
             bad_list.append("追加料理3")        
         
-        # 二次会プラン
-        self.nijikai_plan = self.Niji_plan.get()
         # 二次会人数
         self.nijikai_num = self.Niji_num.get()
+        if self.nijikai_num.isdecimal():
+                if int(self.nijikai_num) > int(self.all_num):
+                    check_clear_flag += 1
+                    bad_list.append("二次会人数")
+                else:
+                    pass
+        else:
+            check_clear_flag += 1
+            bad_list.append("二次会人数")
+            self.nijikai_num ="0"
+        # 二次会プラン
+        self.nijikai_plan = self.Niji_plan.get()
         if self.nijikai_plan == "未選択":
-            if int(self.nijikai_num) == 0:
+            if int( self.nijikai_num) == 0:
                 pass
             else:
-                check_clear_flag += 1
-                bad_list.append("二次会")
+                self.nijikai_num = "0"
+        else:
+            pass
+            
 
         # クリア判定！！
         if check_clear_flag == 0:
