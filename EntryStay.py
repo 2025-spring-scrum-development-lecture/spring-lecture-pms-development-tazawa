@@ -37,7 +37,10 @@ class EntryStay(ctk.CTkFrame):
         self.dogone_option_list = []
         self.numDog_list = []
         self.dogoneSpa_option_list = []
+        # 宿泊数の初期値
+        self.numStay_prv = 1
         # ドッグワンオプション変数の初期値
+        self.numDog_prv = 1
         self.numDog = 0
         self.dogoneSpa_option = 0
         # バリデーションチェックのフラグ
@@ -182,13 +185,13 @@ class EntryStay(ctk.CTkFrame):
             print(f"Error updating child options: {e}")
 
 
-    def filter_rooms(self, num_adult, num_child):
+    def filter_rooms(self, num_adult, num_child):  # 部屋のプルダウンの制限
         total_people = num_adult + num_child
         valid_rooms = [room for room, capacity in self.room_menu.items() if capacity['min'] <= total_people <= capacity['max']]
         return valid_rooms
     
     
-    def update_room_options(self):
+    def update_room_options(self):  # 部屋のプルダウンの更新
         try:
             num_adult_prv = num_adult
             num_child_prv = num_child
@@ -207,7 +210,7 @@ class EntryStay(ctk.CTkFrame):
                 else:
                     self.room_Entry.set('選択できる部屋がありません')
         # 毎秒チェックする
-        self.master.after(1000, self.update_room_options)
+        self.update_room_options_id = self.master.after(1000, self.update_room_options)
 
     
     def check_option(self):  # オプション選択の有無のチェック、金額の計算
@@ -224,11 +227,14 @@ class EntryStay(ctk.CTkFrame):
         self.numChild = int(self.numChild_Entry.get())
         # 入力中に宿泊数を空文字にしないためのtry-except
         try:
+            self.numStay_prv = self.numStay
             self.numStay = self.numStay_Entry.get()
             if self.numStay == '':
-                self.numStay = 1
+                self.numStay = self.numStay_prv
+            self.numStay.isdigit()
+            self.numStay = int(self.numStay)
         except Exception as e:
-            self.numStay = 1
+            self.numStay = self.numStay_prv
         # プランの取得
         self.room = self.room_Entry.get()
         self.dinner = self.dinner_Entry.get()
@@ -297,11 +303,17 @@ class EntryStay(ctk.CTkFrame):
             self.dogoneSpaUnUse_label.place(x=170, y=490)
             # 犬の数の入力中に空文字にしないためのtry-except
             try:
+                self.numDog_prv = self.numDog
                 self.numDog = self.numDog_var.get()
                 if self.numDog == '':
-                    self.numDog = 1
+                    self.numDog = self.numDog_prv
+                self.numDog = self.numDog.translate(str.maketrans('０１２３４５６７８９', '0123456789'))
+                if not self.numDog.isdigit() or self.numDog == 0:
+                    raise ValueError
+                self.numDog = int(self.numDog)
+                
             except Exception as e:
-                self.numDog = 1
+                self.numDog = self.numDog_prv
             # 料金の計算
             self.numDog_option = 1000
             if self.radio_vars.get() == 'use':
@@ -361,7 +373,7 @@ class EntryStay(ctk.CTkFrame):
             self.numDog_list.insert(self.room_cnt-1,self.numDog)
             self.dogoneSpa_option_list.insert(self.room_cnt-1,self.dogoneSpa_option)
         # 毎秒チェックする
-        self.master.after(1000, self.check_option)
+        self.check_option_id = self.master.after(1000, self.check_option)
 
 
     def calc_price(self, room, dinner):  # 部屋と夕食から料金を出す
@@ -433,10 +445,15 @@ class EntryStay(ctk.CTkFrame):
         print(self.hotSpringRental_option_list)
         print(self.dogone_option_list)
         print(self.numDog_list)
-            
+        # afterの停止
+        self.master.after_cancel(self.update_room_options_id)
+        self.master.after_cancel(self.check_option_id)
+        self.master.after_cancel(self.validation_id)
+        # ウィジェットの削除
         from auth import pagemove_entrystay_quotationstay
         for widget in self.master.winfo_children():
             widget.destroy()
+        # self.master.after_cancel()
         pagemove_entrystay_quotationstay(self.master, self.name, self.email, self.numAdult_list, self.numChild_list, self.numStay_list, self.room_list, self.dinner_list, self.planPrace_Adult_list, self.planPrace_Child_list, self.checkin_option_list, self.bedrockButh_option_list, self.peterAdult_option_list, self.peterChild_option_list, self.parkAdult_option_list, self.parkChild_option_list, self.tennis_option_list, self.hotSpringRental_option_list, self.dogone_option_list,self.numDog_list,self.dogoneSpa_option_list)
 
 
@@ -449,7 +466,7 @@ class EntryStay(ctk.CTkFrame):
         except ValueError:
             self.quotation_button.configure(state='disabled')
         # 毎秒チェックする
-        self.master.after(1000, self.validation_check)
+        self.validation_id = self.master.after(1000, self.validation_check)
 
 if __name__ == '__main__':
     root = ctk.CTk()

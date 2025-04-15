@@ -42,7 +42,7 @@ def retuen_select_top(self,name,email):
 def pagemove_entrystay_quotationstay(self,name, email,numAdult,numChild,numStay,room,dinner,Adultplan,Childplan,checkin_option, bedrockButh_option, peterAdult_option, peterChild_option, parkAdult_option, parkChild_option, tennis_option, hotSpringRental_option, dogone_option, numdog, dogoneSpa):
     quotationtotal_list=[]
     for i in range(len(numAdult)):
-        quotationtotal = int(numAdult[i]) * (Adultplan[i]) * int(numStay[i]) + int(checkin_option[i]) + int(bedrockButh_option[i]) + int(peterAdult_option[i]) + int(parkAdult_option[i]) + int(tennis_option[i]) + int(hotSpringRental_option[i]) + int(numChild[i]) * int(Childplan[i]) * int(numStay[i]) + int(checkin_option[i]) + int(bedrockButh_option[i]) + int(peterChild_option[i]) + int(parkChild_option[i]) + int(tennis_option[i]) + int(hotSpringRental_option[i]) + int(dogone_option[i])
+        quotationtotal = (Adultplan[i]) * int(numStay[i]) + int(Childplan[i]) * int(numStay[i]) + int(checkin_option[i]) + int(bedrockButh_option[i]) + int(peterAdult_option[i]) + int(parkAdult_option[i]) + int(peterChild_option[i]) + int(parkChild_option[i]) + int(tennis_option[i]) + int(hotSpringRental_option[i]) + int(dogone_option[i])
         quotationtotal_list.append(quotationtotal)
         
     

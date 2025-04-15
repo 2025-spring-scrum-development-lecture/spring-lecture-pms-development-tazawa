@@ -90,6 +90,7 @@ class QuotationStay(ctk.CTkFrame):
             self.text += f'【パターゴルフ】　{self.peterAdult_option_list[i]+self.peterChild_option_list[i]}円（大人:{self.peterAdult_option_list[i]}円／小学生:{self.peterChild_option_list[i]}円）\n'
             self.text += f'【パークゴルフ】　{self.parkAdult_option_list[i]+self.parkChild_option_list[i]}円（大人:{self.parkAdult_option_list[i]}円／小学生:{self.parkChild_option_list[i]}円）\n'
             self.text += f'【テニスコート利用】 {self.tennis_option_list[i]}円\n'
+            self.text += f'【温泉貸し切り】{self.hotSpringRental_option_list[i]}円\n'
             self.text += f'【ドッグワン】　{self.dogone_option_list[i]}円（{self.numDog_list[i]}匹、ケージ代:{self.numDog_list[i]*1000}円／スパ利用料金:{self.dogoneSpa_option_list[i]}）'
         return self.text
             
